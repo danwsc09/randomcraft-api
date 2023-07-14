@@ -7,6 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import randomcraft.application.base.BaseEntity;
+import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.Constants;
 
 import java.sql.Timestamp;
@@ -30,4 +31,10 @@ public class Ability extends BaseEntity {
 
     @Column(name = "loss_count")
     private Long lossCount;
+
+    public Ability update(AbilityUpdateDto dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        return this;
+    }
 }
