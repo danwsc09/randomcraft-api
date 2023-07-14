@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-@RequestMapping("/api/v1")
+@RequestMapping("/v1/api")
 public @interface ApiPrefixV1Controller {
     @AliasFor(annotation = Component.class)
     String value() default "";

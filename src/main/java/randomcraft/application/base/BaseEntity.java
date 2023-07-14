@@ -2,13 +2,17 @@ package randomcraft.application.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import randomcraft.application.util.Constants;
 
 import java.sql.Timestamp;
 
-@Entity
+@MappedSuperclass
+@Getter
+@Setter
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

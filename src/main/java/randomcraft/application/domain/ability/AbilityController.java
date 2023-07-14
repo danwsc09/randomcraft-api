@@ -1,6 +1,7 @@
 package randomcraft.application.domain.ability;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import randomcraft.application.annotation.ApiPrefixV1Controller;
 
@@ -9,8 +10,8 @@ import randomcraft.application.annotation.ApiPrefixV1Controller;
 public class AbilityController {
 
     @GetMapping("/ability")
-    public String hello() {
-        return "hello world";
+    public String hello(@RequestParam(name = "name", defaultValue = "world") String name) {
+        return "hello " + name;
     }
 
 }

@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/randomstarcraft
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+# logging
+logging:
+  level:
+    web: debug
+    org:
+      springframework:
+        web: debug
