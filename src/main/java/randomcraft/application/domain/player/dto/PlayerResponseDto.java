@@ -9,7 +9,7 @@ import randomcraft.application.util.Constants;
 import java.sql.Timestamp;
 
 @Getter
-public class PlayerDto {
+public class PlayerResponseDto {
     private Long id;
     private String name;
     private String inGameName;
@@ -20,8 +20,8 @@ public class PlayerDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN, timezone = Constants.TIME_ZONE)
     private Timestamp lastPlayed;
 
-    public static PlayerDto createFrom(Player player) {
-        PlayerDto result = new PlayerDto();
+    public static PlayerResponseDto createFrom(Player player) {
+        PlayerResponseDto result = new PlayerResponseDto();
 
         result.id = player.getId();
         result.name = player.getName();

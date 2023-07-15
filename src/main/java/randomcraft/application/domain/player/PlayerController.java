@@ -1,10 +1,10 @@
 package randomcraft.application.domain.player;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import randomcraft.application.annotation.ApiPrefixV1Controller;
-import randomcraft.application.domain.player.dto.PlayerDto;
+import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
+import randomcraft.application.domain.player.dto.PlayerResponseDto;
 
 import java.util.List;
 
@@ -16,7 +16,12 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @GetMapping("/player")
-    public List<PlayerDto> getAllPlayers() {
+    public List<PlayerResponseDto> getAllPlayers() {
         return playerService.findAllPlayers();
+    }
+
+    @PutMapping("/player/{playerId}")
+    public PlayerResponseDto updatePlayerInfo(@PathVariable Long playerId, @RequestBody PlayerInfoUpdateDto playerInfoUpdateDto) {
+        return playerService.updatePlayerInfo(playerId, playerInfoUpdateDto);
     }
 }

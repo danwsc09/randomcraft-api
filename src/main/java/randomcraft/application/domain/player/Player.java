@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import randomcraft.application.base.BaseDateEntity;
 import randomcraft.application.base.enums.Race;
+import randomcraft.application.domain.player.dto.PlayerCreateDto;
+import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.util.Constants;
 
 import java.sql.Timestamp;
@@ -30,7 +32,53 @@ public class Player extends BaseDateEntity {
     @Enumerated(EnumType.STRING)
     private Race race;
 
+    @Column(name = "win_count")
+    private Long winCount;
+
+    @Column(name = "loss_count")
+    private Long lossCount;
+
     @Column(name = "last_played")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN, timezone = Constants.TIME_ZONE)
     private Timestamp lastPlayed;
+
+    /*
+        Business Logic
+     */
+    public static Player createPlayer(PlayerCreateDto dto) {
+        Player player = new Player();
+
+        player.name = dto.getName();
+        player.inGameName = dto.getInGameName();
+        player.youtubeName = dto.getYoutubeName();
+        player.afreecaName = dto.getAfreecaName();
+        player.race = dto.getRace();
+
+        return player;
+    }
+
+    public Player updatePlayerInfo(PlayerInfoUpdateDto dto) {
+
+        this.race = dto.getRace();
+        this.name = dto.getName();
+        this.inGameName = dto.getInGameName();
+        this.afreecaName = dto.getAfreecaName();
+        this.youtubeName = dto.getYoutubeName();
+
+        return this;
+    }
+
+    public Player winGame(Timestamp playedOn) {
+        this.winCount++;
+        this.lastPlayed = playedOn;
+
+        return this;
+    }
+
+    public Player loseGame(Timestamp playedOn) {
+        this.lossCount++;
+        this.lastPlayed = playedOn;
+
+        return this;
+    }
 }
