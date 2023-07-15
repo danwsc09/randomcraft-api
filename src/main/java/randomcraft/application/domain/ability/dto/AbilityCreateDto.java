@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AbilityUpdateDto {
-
+public class AbilityCreateDto {
     private String name;
     private String description;
 }

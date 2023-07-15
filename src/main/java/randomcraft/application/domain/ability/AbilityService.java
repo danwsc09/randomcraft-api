@@ -7,7 +7,6 @@ import randomcraft.application.domain.ability.dto.AbilityDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class AbilityService {
         Ability ability = abilityRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
 
-        ability.update(updateDto);
+        ability.updateInformation(updateDto);
 
         return AbilityDto.createFrom(ability);
     }

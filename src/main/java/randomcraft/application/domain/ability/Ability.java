@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import randomcraft.application.base.BaseDateEntity;
+import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.Constants;
 
@@ -31,9 +32,33 @@ public class Ability extends BaseDateEntity {
     @Column(name = "loss_count")
     private Long lossCount;
 
-    public Ability update(AbilityUpdateDto dto) {
+    /*
+        Business Logic
+     */
+    public static Ability create(AbilityCreateDto dto) {
+        Ability ability = new Ability();
+
+        ability.description = dto.getDescription();
+        ability.name = dto.getName();
+        ability.winCount = 0L;
+        ability.lossCount = 0L;
+
+        return ability;
+    }
+
+    public Ability updateInformation(AbilityUpdateDto dto) {
         this.name = dto.getName();
         this.description = dto.getDescription();
+        return this;
+    }
+
+    public Ability increaseWinCount() {
+        this.winCount += 1;
+        return this;
+    }
+
+    public Ability increaseLossCount() {
+        this.lossCount += 1;
         return this;
     }
 }
