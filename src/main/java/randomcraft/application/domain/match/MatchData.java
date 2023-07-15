@@ -1,7 +1,7 @@
 package randomcraft.application.domain.match;
 
 import jakarta.persistence.*;
-import randomcraft.application.base.BaseEntity;
+import randomcraft.application.base.BaseDateEntity;
 import randomcraft.application.base.enums.GameResult;
 import randomcraft.application.base.enums.Race;
 import randomcraft.application.domain.ability.Ability;
@@ -9,7 +9,7 @@ import randomcraft.application.domain.player.Player;
 
 @Entity
 @Table(name = "match_data")
-public class MatchData extends BaseEntity {
+public class MatchData extends BaseDateEntity {
 
     @Column(name = "location")
     private Long location;

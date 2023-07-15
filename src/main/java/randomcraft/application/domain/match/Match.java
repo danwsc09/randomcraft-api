@@ -1,14 +1,14 @@
 package randomcraft.application.domain.match;
 
 import jakarta.persistence.*;
-import randomcraft.application.base.BaseEntity;
+import randomcraft.application.base.BaseDateEntity;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "matches")
-public class Match extends BaseEntity {
+public class Match extends BaseDateEntity {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "match")
     private List<MatchData> matchDataList;

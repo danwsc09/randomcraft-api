@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @MappedSuperclass
 @Getter
 @Setter
-public class BaseEntity {
+public class BaseDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

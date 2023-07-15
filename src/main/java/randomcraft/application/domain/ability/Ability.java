@@ -3,10 +3,9 @@ package randomcraft.application.domain.ability;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import randomcraft.application.base.BaseEntity;
+import randomcraft.application.base.BaseDateEntity;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.Constants;
 
@@ -15,7 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "abilities")
 @Getter
-public class Ability extends BaseEntity {
+public class Ability extends BaseDateEntity {
     @Column
     private String name;
 
