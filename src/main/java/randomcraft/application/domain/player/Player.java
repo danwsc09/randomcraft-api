@@ -54,6 +54,9 @@ public class Player extends BaseDateEntity {
         player.afreecaName = dto.getAfreecaName();
         player.race = dto.getRace();
 
+        player.winCount = 0L;
+        player.lossCount = 0L;
+
         return player;
     }
 
