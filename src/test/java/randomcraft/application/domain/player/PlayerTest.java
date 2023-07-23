@@ -37,8 +37,8 @@ class PlayerTest {
         assertThat(player.getYoutubeName()).isEqualTo(createYoutubeName);
         assertThat(player.getInGameName()).isEqualTo(createInGameName);
         assertThat(player.getRace()).isEqualTo(createRace);
-        assertThat(player.getWinCount()).isEqualTo(0);
-        assertThat(player.getLossCount()).isEqualTo(0);
+        assertThat(player.getWinCount()).isZero();
+        assertThat(player.getLossCount()).isZero();
     }
 
     @Test
