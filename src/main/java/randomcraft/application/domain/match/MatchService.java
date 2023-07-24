@@ -1,2 +1,7 @@
-package randomcraft.application.domain.match;public class MatchService {
+package randomcraft.application.domain.match;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class MatchService {
 }
