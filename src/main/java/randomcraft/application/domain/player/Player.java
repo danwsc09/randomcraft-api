@@ -3,8 +3,8 @@ package randomcraft.application.domain.player;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
-import randomcraft.application.base.BaseDateEntity;
-import randomcraft.application.base.enums.Race;
+import randomcraft.application.util.entity.BaseDateEntity;
+import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.util.Constants;
@@ -39,7 +39,7 @@ public class Player extends BaseDateEntity {
     private Long lossCount;
 
     @Column(name = "last_played")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN, timezone = Constants.TIME_ZONE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
     private Timestamp lastPlayed;
 
     /*

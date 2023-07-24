@@ -2,7 +2,7 @@ package randomcraft.application.domain.player;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import randomcraft.application.base.enums.Race;
+import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 

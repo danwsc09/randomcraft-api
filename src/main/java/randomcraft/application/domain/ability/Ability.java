@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import randomcraft.application.base.BaseDateEntity;
+import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.Constants;
@@ -23,7 +23,7 @@ public class Ability extends BaseDateEntity {
     private String description;
 
     @Column(name = "last_played")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN, timezone = Constants.TIME_ZONE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
     private Timestamp lastPlayed;
 
     @Column(name = "win_count")

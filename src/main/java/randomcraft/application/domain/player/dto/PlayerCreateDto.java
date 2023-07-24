@@ -2,7 +2,7 @@ package randomcraft.application.domain.player.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import randomcraft.application.base.enums.Race;
+import randomcraft.application.util.entity.enums.Race;
 
 @Getter
 @AllArgsConstructor

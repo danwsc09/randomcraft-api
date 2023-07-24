@@ -2,9 +2,9 @@ package randomcraft.application.domain.match;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import randomcraft.application.base.BaseDateEntity;
-import randomcraft.application.base.enums.GameResult;
-import randomcraft.application.base.enums.Race;
+import randomcraft.application.util.entity.BaseDateEntity;
+import randomcraft.application.util.entity.enums.GameResult;
+import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.player.Player;
 

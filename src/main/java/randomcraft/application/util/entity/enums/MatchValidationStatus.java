@@ -1,4 +1,4 @@
-package randomcraft.application.base.enums;
+package randomcraft.application.util.entity.enums;
 
 public enum MatchValidationStatus {
     SUBMITTED, APPROVED, REJECTED;

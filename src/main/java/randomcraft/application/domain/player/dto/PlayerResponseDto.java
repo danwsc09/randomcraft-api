@@ -2,7 +2,7 @@ package randomcraft.application.domain.player.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
-import randomcraft.application.base.enums.Race;
+import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.util.Constants;
 
@@ -17,7 +17,7 @@ public class PlayerResponseDto {
     private String youtubeName;
     private Race race;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN, timezone = Constants.TIME_ZONE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
     private Timestamp lastPlayed;
 
     public static PlayerResponseDto createFrom(Player player) {

@@ -2,9 +2,9 @@ package randomcraft.application.domain.match;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import randomcraft.application.base.BaseDateEntity;
-import randomcraft.application.base.enums.GameResult;
-import randomcraft.application.base.enums.MatchValidationStatus;
+import randomcraft.application.util.entity.BaseDateEntity;
+import randomcraft.application.util.entity.enums.GameResult;
+import randomcraft.application.util.entity.enums.MatchValidationStatus;
 import randomcraft.application.exception.InvalidRandomcraftMatchException;
 
 import java.sql.Timestamp;
