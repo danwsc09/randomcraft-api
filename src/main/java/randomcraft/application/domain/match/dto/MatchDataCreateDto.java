@@ -8,7 +8,7 @@ import randomcraft.application.util.entity.enums.Race;
 @Getter
 @Setter
 public class MatchDataCreateDto {
-    private Long location;
+    private Integer location;
     private Race race;
     private GameResult result;
     private Long abilityId;

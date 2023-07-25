@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://jobtracker.cxnpodgrrcks.us-west-2.rds.amazonaws.com:3306/jobtracker
-    username: admin
-    password: password!
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  #    url: jdbc:postgresql://localhost:5432/randomstarcraft
-#    username: postgres
-#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:mysql://jobtracker.cxnpodgrrcks.us-west-2.rds.amazonaws.com:3306/jobtracker
+#    username: admin
+#    password: password!
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://localhost:5432/randomstarcraft
+    username: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     hibernate:

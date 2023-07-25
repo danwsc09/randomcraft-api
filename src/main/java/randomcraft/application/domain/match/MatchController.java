@@ -3,6 +3,7 @@ package randomcraft.application.domain.match;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import randomcraft.application.domain.match.dto.MatchCreateDto;
 import randomcraft.application.domain.match.dto.MatchResponseDto;
 import randomcraft.application.domain.match.dto.MatchStatusUpdateDto;
 import randomcraft.application.domain.match.dto.MatchUpdateDto;
@@ -17,7 +18,7 @@ public class MatchController {
     private final MatchService matchService;
 
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<MatchResponseDto> updateMatch(MatchUpdateDto updateDto) {
 
         return ResponseEntity.ok(matchService.updateMatch(updateDto));
@@ -28,7 +29,7 @@ public class MatchController {
         return ResponseEntity.ok(matchService.getMatchById(matchId));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<PaginationResponse<Match, MatchResponseDto>> getAllMatches(
             @RequestParam(defaultValue = Constants.PAGINATION_DEFAULT_PAGE) int page,
             @RequestParam(defaultValue = Constants.PAGINATION_DEFAULT_SIZE) int size
@@ -41,4 +42,10 @@ public class MatchController {
 
         return ResponseEntity.ok(matchService.updateMatchStatus(statusUpdateDto));
     }
+
+    @PostMapping("/new")
+    public ResponseEntity<MatchResponseDto> createMatch(@RequestBody MatchCreateDto matchCreateDto) {
+        return ResponseEntity.ok(matchService.createMatch(matchCreateDto));
+    }
+
 }

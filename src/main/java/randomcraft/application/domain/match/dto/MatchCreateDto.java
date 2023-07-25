@@ -12,7 +12,7 @@ public class MatchCreateDto {
     private List<MatchDataCreateDto> matchItems;
     private Timestamp playedOn;
     private String summary;
-    private Long bestOf;
-    private Long gameNumber;
+    private Integer bestOf;
+    private Integer gameNumber;
     private String vods;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.AbilityRepository;
+import randomcraft.application.domain.match.dto.MatchCreateDto;
 import randomcraft.application.domain.match.dto.MatchResponseDto;
 import randomcraft.application.domain.match.dto.MatchStatusUpdateDto;
 import randomcraft.application.domain.match.dto.MatchUpdateDto;
@@ -66,6 +67,33 @@ public class MatchService {
             case REJECTED -> match.rejectMatch();
             default -> match.restoreStatusDefault();
         }
+        return new MatchResponseDto(match);
+    }
+
+    @Transactional
+    public MatchResponseDto createMatch(MatchCreateDto matchCreateDto) {
+
+        List<MatchData> matchDataList = matchCreateDto.getMatchItems().stream()
+                .map(item -> {
+                    Ability ability = abilityRepository.findById(item.getAbilityId())
+                            .orElseThrow(() -> new BadRequestException("No ability by id " + item.getAbilityId()));
+
+                    Player player = playerRepository.findById(item.getPlayerId())
+                            .orElseThrow(() -> new BadRequestException("No player by id " + item.getPlayerId()));
+
+                    return MatchData.create(
+                            item.getLocation(), item.getRace(), item.getResult(), ability, player
+                    );
+                })
+                .toList();
+
+        Match match = Match.createMatch(
+                matchCreateDto.getPlayedOn(), matchCreateDto.getSummary(), matchCreateDto.getBestOf(),
+                matchCreateDto.getGameNumber(), matchCreateDto.getVods(), matchDataList
+        );
+
+        matchRepository.save(match);
+
         return new MatchResponseDto(match);
     }
 
