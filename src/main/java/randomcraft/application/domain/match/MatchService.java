@@ -46,7 +46,7 @@ public class MatchService {
 
         match.updateMatchInfo(
                 matchUpdateDto.getPlayedOn(), matchUpdateDto.getSummary(), matchUpdateDto.getBestOf(),
-                matchUpdateDto.getGameNumber(), matchUpdateDto.getVods(), matchDataList.toArray(new MatchData[0])
+                matchUpdateDto.getGameNumber(), matchUpdateDto.getVods(), matchDataList
         );
 
         return new MatchResponseDto(match);

@@ -54,7 +54,7 @@ public class Match extends BaseDateEntity {
 
     public static Match createMatch(
             Timestamp playedOn, String summary, Integer bestOf, Integer gameNumber, String vods,
-            MatchData... matchDataList
+            List<MatchData> matchDataList
     ) {
         Match match = new Match();
         match.playedOn = playedOn;
@@ -76,7 +76,7 @@ public class Match extends BaseDateEntity {
 
     public Match updateMatchInfo(
             Timestamp playedOn, String summary, Integer bestOf, Integer gameNumber,
-            String vods, MatchData... matchDataList
+            String vods, List<MatchData> matchDataList
             ) {
         this.playedOn = playedOn;
         this.summary = summary;

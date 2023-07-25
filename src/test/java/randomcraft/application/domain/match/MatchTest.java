@@ -14,6 +14,7 @@ import randomcraft.application.exception.InvalidRandomcraftMatchException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +31,7 @@ class MatchTest {
         String updatedVods = "new vods";
 
         // when
-        match.updateMatchInfo(match.getPlayedOn(), updatedSummary, updatedBestOf, updatedGameNumber, updatedVods);
+        match.updateMatchInfo(match.getPlayedOn(), updatedSummary, updatedBestOf, updatedGameNumber, updatedVods, List.of());
 
         // then
         assertThat(match.getSummary()).isEqualTo(updatedSummary);
@@ -57,7 +58,7 @@ class MatchTest {
             Match.createMatch(
                     Timestamp.from(Instant.now()),
                     "", 1, 1, "",
-                    data1, data2, data3
+                    List.of(data1, data2, data3)
             );
         });
 
@@ -97,7 +98,7 @@ class MatchTest {
 
         return Match.createMatch(
                 Timestamp.from(Instant.now()), "summary", 5, 1, "",
-                data1, data2, data3, data4
+                List.of(data1, data2, data3, data4)
         );
     }
 
