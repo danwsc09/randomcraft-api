@@ -1,10 +1,12 @@
 package randomcraft.application.util.response;
 
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class PaginationResponse<T, C> {
     private long total = 0;
     private boolean hasNextPage = false;

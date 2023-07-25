@@ -1,8 +1,8 @@
 package randomcraft.application.domain.match;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.ability.Ability;
@@ -22,7 +22,6 @@ import java.util.List;
 public class MatchService {
 
     private final MatchRepository matchRepository;
-    private final MatchDataRepository matchDataRepository;
     private final AbilityRepository abilityRepository;
     private final PlayerRepository playerRepository;
 
@@ -71,9 +70,13 @@ public class MatchService {
     }
 
     public PaginationResponse<Match, MatchResponseDto> getAllMatches(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Match> matches = matchRepository.findAll(pageRequest);
 
-        // TODO: WIP
-        return null;
+        List<MatchResponseDto> list = matches.stream()
+                .map(MatchResponseDto::new)
+                .toList();
+        return new PaginationResponse<>(matches, list);
     }
 
     private Match findById(Long matchId) {
