@@ -8,7 +8,7 @@ import randomcraft.application.util.Constants;
 import java.sql.Timestamp;
 
 @Getter
-public class AbilityDto {
+public class AbilityResponseDto {
 
     private Long id;
 
@@ -24,8 +24,8 @@ public class AbilityDto {
     private Long winCount;
     private Long lossCount;
 
-    public static AbilityDto createFrom(Ability ability) {
-        AbilityDto result = new AbilityDto();
+    public static AbilityResponseDto createFrom(Ability ability) {
+        AbilityResponseDto result = new AbilityResponseDto();
         result.id = ability.getId();
         result.createdAt = ability.getCreatedAt();
         result.name = ability.getName();

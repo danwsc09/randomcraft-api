@@ -3,6 +3,7 @@ package randomcraft.application.domain.player;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.domain.player.dto.PlayerResponseDto;
 import randomcraft.application.exception.BadRequestException;
@@ -30,5 +31,24 @@ public class PlayerService {
         Player updatedPlayer = player.updatePlayerInfo(playerInfoUpdateDto);
 
         return PlayerResponseDto.createFrom(updatedPlayer);
+    }
+
+    @Transactional
+    public PlayerResponseDto createPlayer(PlayerCreateDto playerCreateDto) {
+
+        Player player = Player.createPlayer(playerCreateDto);
+        playerRepository.save(player);
+
+        return PlayerResponseDto.createFrom(player);
+    }
+
+    public PlayerResponseDto deletePlayerById(Long playerId) {
+        Player player = playerRepository.findById(playerId)
+                .orElse(null);
+
+        if (player == null) return null;
+
+        playerRepository.deleteById(playerId);
+        return PlayerResponseDto.createFrom(player);
     }
 }
