@@ -3,6 +3,7 @@ package randomcraft.application.domain.player;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
 import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "players")
 @Getter
+@ToString
 public class Player extends BaseDateEntity {
 
     @Column(name = "name")

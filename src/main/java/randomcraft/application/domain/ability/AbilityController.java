@@ -18,8 +18,8 @@ public class AbilityController {
     private final AbilityService abilityService;
 
     @GetMapping()
-    public List<AbilityResponseDto> getAbilities() {
-        return abilityService.findAllAbilities();
+    public ResponseEntity<List<AbilityResponseDto>> getAbilities() {
+        return ResponseEntity.ok(abilityService.findAllAbilities());
     }
 
     @PutMapping("/{abilityId}")
@@ -28,7 +28,7 @@ public class AbilityController {
     }
 
     @PostMapping()
-    public ResponseEntity<AbilityResponseDto> createAbility(AbilityCreateDto abilityCreateDto) {
+    public ResponseEntity<AbilityResponseDto> createAbility(@RequestBody AbilityCreateDto abilityCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(abilityService.createAbility(abilityCreateDto));
     }

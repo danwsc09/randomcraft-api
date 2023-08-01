@@ -1,4 +1,4 @@
-package randomcraft.application.domain.player;
+package randomcraft.application.domain.ability;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import randomcraft.application.domain.player.dto.PlayerCreateDto;
-import randomcraft.application.util.entity.enums.Race;
+import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 
 import java.util.List;
 
@@ -20,29 +18,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PlayerControllerTest {
-
+class AbilityControllerTest {
     @Autowired
-    PlayerRepository playerRepository;
+    AbilityRepository abilityRepository;
     @Autowired
     MockMvc mvc;
     @Autowired
     ObjectMapper mapper;
 
-    String name = "Chris";
-    String ign = "Fire";
-    String afreecaName = "FireOnAfreeca";
-    String youtubeName = "FireOnYoutube";
-    Race race = Race.PROTOSS;
+    String BASE_URL = "/api/ability";
 
-    String BASE_URL = "/api/player";
+    String name = "abilityName";
+    String description = "abilityDescription";
 
     @Test
-    @DisplayName("Player is successfully created and saved to the database")
-    @Transactional
-    void playerCreateIsSuccessful() throws Exception {
+    @DisplayName("Ability is successfully created and saved to the database")
+    void abilityCreationIsSuccessful() throws Exception {
         // given
-        PlayerCreateDto createDto = new PlayerCreateDto(name, ign, afreecaName, youtubeName, race);
+        AbilityCreateDto createDto = new AbilityCreateDto(name, description);
         String body = mapper.writeValueAsString(createDto);
 
         // when + then
@@ -50,11 +43,13 @@ class PlayerControllerTest {
                         .header("Content-Type", "application/json")
                         .content(body))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").exists());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists());
 
-        List<Player> playerList = playerRepository.findAll();
-        assertThat(playerList).hasSize(1);
-        assertThat(playerList.get(0).getInGameName()).isEqualTo(ign);
-        assertThat(playerList.get(0).getName()).isEqualTo(name);
+        List<Ability> abilityL = abilityRepository.findAll();
+        assertThat(abilityL).hasSize(1);
+        assertThat(abilityL.get(0).getDescription()).isEqualTo(description);
+        assertThat(abilityL.get(0).getName()).isEqualTo(name);
     }
 }
