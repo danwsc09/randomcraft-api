@@ -1,11 +1,15 @@
 package randomcraft.application.domain.ability;
 
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityResponseDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
+import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
 
@@ -15,10 +19,17 @@ public class AbilityService {
 
     private final AbilityRepository abilityRepository;
 
-    public List<AbilityResponseDto> findAllAbilities() {
-        return abilityRepository.findAll().stream()
+    public PaginationResponse<Ability, AbilityResponseDto> findAllAbilities(PageRequest pageRequest, String name, String description) {
+
+        Page<Ability> abilities = abilityRepository.findAllByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(
+                name, description, pageRequest
+        );
+
+        List<AbilityResponseDto> list = abilities.stream()
                 .map(AbilityResponseDto::createFrom)
                 .toList();
+
+        return new PaginationResponse(abilities, list);
     }
 
     @Transactional

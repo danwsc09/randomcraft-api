@@ -1,12 +1,15 @@
 package randomcraft.application.domain.player;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.domain.player.dto.PlayerResponseDto;
 import randomcraft.application.exception.BadRequestException;
+import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
 
@@ -16,10 +19,15 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    public List<PlayerResponseDto> findAllPlayers() {
-        return playerRepository.findAll().stream()
+    public PaginationResponse<Player, PlayerResponseDto> findAllPlayers(PageRequest pageRequest, String name, String ign) {
+        Page<Player> players = playerRepository.findAllByNameContainingIgnoreCaseAndInGameNameContainingIgnoreCase(
+                name, ign, pageRequest);
+
+        List<PlayerResponseDto> list = players.stream()
                 .map(PlayerResponseDto::createFrom)
                 .toList();
+
+        return new PaginationResponse<>(players, list);
     }
 
     @Transactional

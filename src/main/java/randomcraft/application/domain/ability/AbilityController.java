@@ -1,12 +1,15 @@
 package randomcraft.application.domain.ability;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityResponseDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
+import randomcraft.application.util.Constants;
+import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
 
@@ -18,8 +21,15 @@ public class AbilityController {
     private final AbilityService abilityService;
 
     @GetMapping()
-    public ResponseEntity<List<AbilityResponseDto>> getAbilities() {
-        return ResponseEntity.ok(abilityService.findAllAbilities());
+    public ResponseEntity<PaginationResponse<Ability, AbilityResponseDto>> getAbilities(
+            @RequestParam(name = "page", defaultValue = Constants.PAGINATION_DEFAULT_PAGE) int page,
+            @RequestParam(name = "size", defaultValue = Constants.PAGINATION_DEFAULT_SIZE) int size,
+            @RequestParam(name = "name", defaultValue = "") String name,
+            @RequestParam(name = "description", defaultValue = "") String description
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        return ResponseEntity.ok(abilityService.findAllAbilities(pageRequest, name, description));
     }
 
     @PutMapping("/{abilityId}")

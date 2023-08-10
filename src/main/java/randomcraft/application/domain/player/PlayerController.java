@@ -1,12 +1,15 @@
 package randomcraft.application.domain.player;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.domain.player.dto.PlayerResponseDto;
+import randomcraft.application.util.Constants;
+import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
 
@@ -18,8 +21,14 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @GetMapping()
-    public ResponseEntity<List<PlayerResponseDto>> getAllPlayers() {
-        return ResponseEntity.ok(playerService.findAllPlayers());
+    public ResponseEntity<PaginationResponse<Player, PlayerResponseDto>> getAllPlayers(
+            @RequestParam(name = "page", defaultValue = Constants.PAGINATION_DEFAULT_PAGE) int page,
+            @RequestParam(name = "size", defaultValue = Constants.PAGINATION_DEFAULT_SIZE) int size,
+            @RequestParam(name = "name", defaultValue = "") String name,
+            @RequestParam(name = "ign", defaultValue = "") String ign
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return ResponseEntity.ok(playerService.findAllPlayers(pageRequest, name, ign));
     }
 
     @PutMapping("/{playerId}")
