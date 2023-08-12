@@ -47,7 +47,7 @@ public class AbilityService {
     public AbilityResponseDto createAbility(AbilityCreateDto createDto) {
 
         Ability ability = Ability.create(createDto);
-        abilityRepository.save(ability);
+        ability = abilityRepository.save(ability);
 
         return AbilityResponseDto.createFrom(ability);
     }

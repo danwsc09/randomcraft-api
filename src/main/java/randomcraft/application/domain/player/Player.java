@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
-import randomcraft.application.util.entity.BaseDateEntity;
-import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.util.Constants;
+import randomcraft.application.util.entity.BaseDateEntity;
+import randomcraft.application.util.entity.enums.Race;
 
 import java.sql.Timestamp;
 
@@ -75,14 +75,20 @@ public class Player extends BaseDateEntity {
 
     public Player winGame(Timestamp playedOn) {
         this.winCount++;
-        this.lastPlayed = playedOn;
+
+        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+            this.lastPlayed = playedOn;
+        }
 
         return this;
     }
 
     public Player loseGame(Timestamp playedOn) {
         this.lossCount++;
-        this.lastPlayed = playedOn;
+
+        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+            this.lastPlayed = playedOn;
+        }
 
         return this;
     }

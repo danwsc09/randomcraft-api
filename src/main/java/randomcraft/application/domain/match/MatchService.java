@@ -22,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MatchService {
 
+    private final MatchDataRepository matchDataRepository;
     private final MatchRepository matchRepository;
     private final AbilityRepository abilityRepository;
     private final PlayerRepository playerRepository;
@@ -33,7 +34,6 @@ public class MatchService {
                 .orElseThrow(() ->
                         new BadRequestException(String.format("Match with id %s not found.", matchUpdateDto.getId())));
 
-        // TODO: update player win/loss
         List<MatchData> matchDataList = matchUpdateDto.getMatchItems().stream()
                 .map(matchDataUpdateDto -> {
                     Ability ability = abilityRepository.findById(matchDataUpdateDto.getAbilityId())
@@ -74,7 +74,6 @@ public class MatchService {
     @Transactional
     public MatchResponseDto createMatch(MatchCreateDto matchCreateDto) {
 
-        // TODO: update player win/loss
         List<MatchData> matchDataList = matchCreateDto.getMatchItems().stream()
                 .map(item -> {
                     Ability ability = abilityRepository.findById(item.getAbilityId())
@@ -94,6 +93,7 @@ public class MatchService {
                 matchCreateDto.getGameNumber(), matchCreateDto.getVods(), matchDataList
         );
 
+        matchDataRepository.saveAll(match.getMatchDataList());
         matchRepository.save(match);
 
         return new MatchResponseDto(match);

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AbilityTest {
@@ -38,7 +41,7 @@ class AbilityTest {
         Ability ability = Ability.create(abilityCreateDto);
 
         // when
-        ability.increaseLossCount();
+        ability.loseGame(Timestamp.from(Instant.now()));
 
         // then
         assertThat(ability.getLossCount()).isEqualTo(1);
@@ -53,7 +56,7 @@ class AbilityTest {
         Ability ability = Ability.create(abilityCreateDto);
 
         // when
-        ability.increaseWinCount();
+        ability.winGame(Timestamp.from(Instant.now()));
 
         // then
         assertThat(ability.getWinCount()).isEqualTo(1);

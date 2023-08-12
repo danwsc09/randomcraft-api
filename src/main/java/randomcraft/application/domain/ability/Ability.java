@@ -52,13 +52,23 @@ public class Ability extends BaseDateEntity {
         return this;
     }
 
-    public Ability increaseWinCount() {
+    public Ability winGame(Timestamp playedOn) {
         this.winCount += 1;
+
+        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+            this.lastPlayed = playedOn;
+        }
+
         return this;
     }
 
-    public Ability increaseLossCount() {
+    public Ability loseGame(Timestamp playedOn) {
         this.lossCount += 1;
+
+        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+            this.lastPlayed = playedOn;
+        }
+
         return this;
     }
 }

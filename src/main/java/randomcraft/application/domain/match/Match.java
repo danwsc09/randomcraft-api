@@ -2,10 +2,12 @@ package randomcraft.application.domain.match;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import randomcraft.application.domain.ability.Ability;
+import randomcraft.application.domain.player.Player;
+import randomcraft.application.exception.InvalidRandomcraftMatchException;
 import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
-import randomcraft.application.exception.InvalidRandomcraftMatchException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class Match extends BaseDateEntity {
     private String vods;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private MatchValidationStatus validationStatus;
 
     /**
@@ -77,7 +80,7 @@ public class Match extends BaseDateEntity {
     public Match updateMatchInfo(
             Timestamp playedOn, String summary, Integer bestOf, Integer gameNumber,
             String vods, List<MatchData> matchDataList
-            ) {
+    ) {
         this.playedOn = playedOn;
         this.summary = summary;
         this.bestOf = bestOf;
@@ -123,6 +126,28 @@ public class Match extends BaseDateEntity {
 
     public void approveMatch() {
         validationStatus = MatchValidationStatus.APPROVED;
+        List<MatchData> winnersList = matchDataList.stream()
+                .filter(matchData -> matchData.getResult().equals(GameResult.WIN))
+                .toList();
+        List<MatchData> losersList = matchDataList.stream()
+                .filter(matchData -> matchData.getResult().equals(GameResult.LOSS))
+                .toList();
+
+        winnersList.forEach(matchData -> {
+            Player player = matchData.getPlayer();
+            player.winGame(playedOn);
+
+            Ability ability = matchData.getAbility();
+            ability.winGame(playedOn);
+        });
+
+        losersList.forEach(matchData -> {
+            Player player = matchData.getPlayer();
+            player.loseGame(playedOn);
+
+            Ability ability = matchData.getAbility();
+            ability.loseGame(playedOn);
+        });
     }
 
     public void rejectMatch() {
