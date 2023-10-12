@@ -1,0 +1,15 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{common/fragments/head :: HeadFragment}">
+    <title>랜덤능력크래프트</title>
+</head>
+<body>
+<header th:replace="~{common/fragments/header :: HeaderFragment}"></header>
+
+<div layout:fragment="content"></div>
+
+<footer th:replace="~{common/fragments/footer :: FooterFragment}"></footer>
+</body>
+</html>
+<!--    <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">랜덤능력크래프트</title>-->
