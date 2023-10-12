@@ -3,17 +3,18 @@ package randomcraft.application.domain.match;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import randomcraft.application.util.entity.enums.GameResult;
-import randomcraft.application.util.entity.enums.MatchValidationStatus;
-import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.exception.InvalidRandomcraftMatchException;
+import randomcraft.application.util.Constants;
+import randomcraft.application.util.entity.enums.GameResult;
+import randomcraft.application.util.entity.enums.MatchValidationStatus;
+import randomcraft.application.util.entity.enums.Race;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,11 +53,11 @@ class MatchTest {
         MatchData data3 = MatchData.create(
                 12, Race.PROTOSS, GameResult.LOSS, helperCreateAbility(), helperCreatePlayer()
         );
-        
+
         // when + then
         Assertions.assertThrows(InvalidRandomcraftMatchException.class, () -> {
             Match.createMatch(
-                    Timestamp.from(Instant.now()),
+                    OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)),
                     "", 1, 1, "",
                     List.of(data1, data2, data3)
             );
@@ -97,7 +98,7 @@ class MatchTest {
 
 
         return Match.createMatch(
-                Timestamp.from(Instant.now()), "summary", 5, 1, "",
+                OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)), "summary", 5, 1, "",
                 List.of(data1, data2, data3, data4)
         );
     }
@@ -109,6 +110,6 @@ class MatchTest {
     Ability helperCreateAbility() {
         return Ability.create(new AbilityCreateDto("ability 1", "desc 1"));
     }
-    
-    
+
+
 }

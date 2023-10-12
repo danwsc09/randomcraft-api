@@ -1,0 +1,35 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content"
+>
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">ability home</title>
+</head>
+<body>
+<a th:href="@{/ability/new}">생성하기</a>
+<table>
+    <thead>
+    <tr>
+        <th>생성날짜</th>
+        <th>name</th>
+        <th>description</th>
+        <th>last played</th>
+        <th>승</th>
+        <th>패</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ability: ${abilities}">
+        <td th:text="${#temporals.format(ability.createdAt, 'yyyy-MM-dd HH:mm:ss', 'Asia/Seoul')}" />
+        <td th:text="${ability.name}" />
+        <td th:text="${ability.description}" />
+        <td th:text="${ability.lastPlayed}" />
+        <td th:text="${ability.winCount}" />
+        <td th:text="${ability.lossCount}" />
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

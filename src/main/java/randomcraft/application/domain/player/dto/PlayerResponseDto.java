@@ -6,7 +6,8 @@ import randomcraft.application.util.entity.enums.Race;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.util.Constants;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+
 
 @Getter
 public class PlayerResponseDto {
@@ -18,7 +19,7 @@ public class PlayerResponseDto {
     private Race race;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
-    private Timestamp lastPlayed;
+    private OffsetDateTime lastPlayed;
 
     public static PlayerResponseDto createFrom(Player player) {
         PlayerResponseDto result = new PlayerResponseDto();

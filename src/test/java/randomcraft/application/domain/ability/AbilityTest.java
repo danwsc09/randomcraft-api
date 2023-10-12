@@ -4,9 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
+import randomcraft.application.util.Constants;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +42,7 @@ class AbilityTest {
         Ability ability = Ability.create(abilityCreateDto);
 
         // when
-        ability.loseGame(Timestamp.from(Instant.now()));
+        ability.loseGame(OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)));
 
         // then
         assertThat(ability.getLossCount()).isEqualTo(1);
@@ -56,7 +57,7 @@ class AbilityTest {
         Ability ability = Ability.create(abilityCreateDto);
 
         // when
-        ability.winGame(Timestamp.from(Instant.now()));
+        ability.winGame(OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)));
 
         // then
         assertThat(ability.getWinCount()).isEqualTo(1);

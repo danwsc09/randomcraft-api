@@ -10,7 +10,8 @@ import randomcraft.application.util.Constants;
 import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.util.entity.enums.Race;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+
 
 @Entity
 @Table(name = "players")
@@ -42,7 +43,7 @@ public class Player extends BaseDateEntity {
 
     @Column(name = "last_played")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
-    private Timestamp lastPlayed;
+    private OffsetDateTime lastPlayed;
 
     /*
         Business Logic
@@ -73,20 +74,20 @@ public class Player extends BaseDateEntity {
         return this;
     }
 
-    public Player winGame(Timestamp playedOn) {
+    public Player winGame(OffsetDateTime playedOn) {
         this.winCount++;
 
-        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+        if (this.lastPlayed == null || this.lastPlayed.isBefore(playedOn)) {
             this.lastPlayed = playedOn;
         }
 
         return this;
     }
 
-    public Player loseGame(Timestamp playedOn) {
+    public Player loseGame(OffsetDateTime playedOn) {
         this.lossCount++;
 
-        if (this.lastPlayed == null || this.lastPlayed.before(playedOn)) {
+        if (this.lastPlayed == null || this.lastPlayed.isBefore(playedOn)) {
             this.lastPlayed = playedOn;
         }
 

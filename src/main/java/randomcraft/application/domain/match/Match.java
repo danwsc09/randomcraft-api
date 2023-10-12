@@ -1,6 +1,12 @@
 package randomcraft.application.domain.match;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.player.Player;
@@ -9,7 +15,7 @@ import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +30,7 @@ public class Match extends BaseDateEntity {
     private List<MatchData> matchDataList = new ArrayList<>();
 
     @Column(name = "played_on")
-    private Timestamp playedOn;
+    private OffsetDateTime playedOn;
 
     @Column(name = "summary", columnDefinition = "TEXT")
     private String summary;
@@ -56,7 +62,7 @@ public class Match extends BaseDateEntity {
      */
 
     public static Match createMatch(
-            Timestamp playedOn, String summary, Integer bestOf, Integer gameNumber, String vods,
+            OffsetDateTime playedOn, String summary, Integer bestOf, Integer gameNumber, String vods,
             List<MatchData> matchDataList
     ) {
         Match match = new Match();
@@ -78,7 +84,7 @@ public class Match extends BaseDateEntity {
     }
 
     public Match updateMatchInfo(
-            Timestamp playedOn, String summary, Integer bestOf, Integer gameNumber,
+            OffsetDateTime playedOn, String summary, Integer bestOf, Integer gameNumber,
             String vods, List<MatchData> matchDataList
     ) {
         this.playedOn = playedOn;

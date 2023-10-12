@@ -1,17 +1,17 @@
-package randomcraft.application.domain.ability;
+package randomcraft.application.domain.ability.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import randomcraft.application.domain.ability.Ability;
+import randomcraft.application.domain.ability.AbilityService;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityResponseDto;
 import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.Constants;
 import randomcraft.application.util.response.PaginationResponse;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/ability")

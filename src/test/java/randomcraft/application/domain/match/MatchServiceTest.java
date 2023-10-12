@@ -1,6 +1,5 @@
 package randomcraft.application.domain.match;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,12 @@ import randomcraft.application.domain.match.dto.MatchUpdateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.PlayerRepository;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
+import randomcraft.application.util.Constants;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.Race;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +62,7 @@ class MatchServiceTest {
         MatchData md4 = MatchData.create(4, Race.PROTOSS, GameResult.LOSS, a4, p4);
 
         Match match = Match.createMatch(
-                Timestamp.from(Instant.now()), "summary", 5, 3, "vods",
+                OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)), "summary", 5, 3, "vods",
                 List.of(md1, md2, md3, md4)
         );
 

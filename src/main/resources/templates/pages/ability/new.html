@@ -1,0 +1,27 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content"
+>
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">능력 생성</title>
+</head>
+<body>
+<form th:action="@{/ability/new}" th:object="${ability}" method="post">
+    <table>
+        <tr>
+            <td>name</td>
+            <td><input type="text" th:field="*{name}"/> </td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

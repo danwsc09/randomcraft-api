@@ -1,7 +1,6 @@
 package randomcraft.application.domain.ability;
 
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.converters.models.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

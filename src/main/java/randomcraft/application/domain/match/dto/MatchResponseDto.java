@@ -8,14 +8,14 @@ import randomcraft.application.util.entity.enums.MatchValidationStatus;
 import randomcraft.application.domain.match.Match;
 import randomcraft.application.util.Constants;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Getter @Setter
 public class MatchResponseDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_DATE_ONLY, timezone = Constants.TIME_ZONE)
-    private Timestamp playedOn;
+    private OffsetDateTime playedOn;
     private String summary;
     private Integer bestOf;
     private Integer gameNumber;

@@ -5,7 +5,7 @@ import lombok.Getter;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.util.Constants;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Getter
 public class AbilityResponseDto {
@@ -13,13 +13,13 @@ public class AbilityResponseDto {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
-    private Timestamp createdAt;
+    private OffsetDateTime createdAt;
 
     private String name;
     private String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_FULL_DATE, timezone = Constants.TIME_ZONE)
-    private Timestamp lastPlayed;
+    private OffsetDateTime lastPlayed;
 
     private Long winCount;
     private Long lossCount;
