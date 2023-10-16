@@ -1,10 +1,12 @@
-package randomcraft.application.domain.player;
+package randomcraft.application.domain.player.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import randomcraft.application.domain.player.Player;
+import randomcraft.application.domain.player.PlayerService;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.domain.player.dto.PlayerResponseDto;

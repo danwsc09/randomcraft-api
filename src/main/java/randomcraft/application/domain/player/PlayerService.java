@@ -12,6 +12,7 @@ import randomcraft.application.exception.BadRequestException;
 import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,13 @@ public class PlayerService {
                 .toList();
 
         return new PaginationResponse<>(players, list);
+    }
+
+    public PlayerResponseDto findPlayerById(Long playerId) {
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new NoSuchElementException("No player by id: " + playerId));
+
+        return PlayerResponseDto.createFrom(player);
     }
 
     @Transactional

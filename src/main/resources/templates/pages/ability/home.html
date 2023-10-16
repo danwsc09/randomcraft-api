@@ -2,8 +2,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/default_layout}"
-      layout:fragment="content"
->
+      layout:fragment="content">
 <head>
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">ability home</title>
 </head>
@@ -18,6 +17,7 @@
         <th>last played</th>
         <th>승</th>
         <th>패</th>
+        <th>action</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +28,10 @@
         <td th:text="${ability.lastPlayed}" />
         <td th:text="${ability.winCount}" />
         <td th:text="${ability.lossCount}" />
+        <th>
+            <a th:href="@{|/ability/edit/${ability.id}|}">수정</a>
+            <a th:href="@{|/ability/delete/${ability.id}|}">삭제</a>
+        </th>
     </tr>
     </tbody>
 </table>

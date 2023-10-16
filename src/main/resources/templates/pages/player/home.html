@@ -1,0 +1,41 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">선수 홈</title>
+</head>
+<body>
+<a th:href="@{/player/new}">생성하기</a>
+<table>
+    <thead>
+    <tr>
+        <th>생성날짜</th>
+        <th>이름</th>
+        <th>아이디</th>
+        <th>last played</th>
+        <th>주종족</th>
+        <th>승</th>
+        <th>패</th>
+        <th>action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="player: ${players}">
+        <td th:text="${#temporals.format(player.createdAt, 'yyyy-MM-dd HH:mm:ss', 'Asia/Seoul')}" />
+        <td th:text="${player.name}" />
+        <td th:text="${player.inGameName}" />
+        <td th:text="${player.lastPlayed}" />
+        <td th:text="${player.race.name()}" />
+        <td th:text="${player.winCount}" />
+        <td th:text="${player.lossCount}" />
+        <th>
+            <a th:href="@{|/player/edit/${player.id}|}">수정</a>
+            <a th:href="@{|/player/delete/${player.id}|}">삭제</a>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

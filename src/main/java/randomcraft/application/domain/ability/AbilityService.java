@@ -11,6 +11,7 @@ import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,13 @@ public class AbilityService {
                 .toList();
 
         return new PaginationResponse(abilities, list);
+    }
+
+    public AbilityResponseDto findById(Long id) {
+        Ability ability = abilityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No ability by id: " + id));
+
+        return AbilityResponseDto.createFrom(ability);
     }
 
     @Transactional

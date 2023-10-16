@@ -5,16 +5,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.AbilityService;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.ability.dto.AbilityResponseDto;
+import randomcraft.application.domain.ability.dto.AbilityUpdateDto;
 import randomcraft.application.util.response.PaginationResponse;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -45,11 +45,32 @@ public class AbilityViewController {
     }
 
     @PostMapping("/ability/new")
-    public String abilityCreate(AbilityCreateDto abilityCreateDto) {
+    public String createAbility(AbilityCreateDto abilityCreateDto) {
 
-        System.out.println("abilityCreateDto = " + abilityCreateDto);
         abilityService.createAbility(abilityCreateDto);
 
+        return "redirect:/ability";
+    }
+
+    @GetMapping("/ability/edit/{abilityId}")
+    public String abilityEditPage(@PathVariable long abilityId, Model model) {
+        AbilityResponseDto ability = abilityService.findById(abilityId);
+        model.addAttribute("ability",ability);
+
+        return "pages/ability/edit";
+    }
+
+    @PostMapping("/ability/edit/{abilityId}")
+    public String editAbility(@PathVariable long abilityId, AbilityUpdateDto abilityUpdateDto) {
+
+        abilityService.updateAbility(abilityId, abilityUpdateDto);
+
+        return "redirect:/ability";
+    }
+
+    @PostMapping("/ability/delete/{abilityId}")
+    public String deleteAbility(@PathVariable long abilityId) {
+        abilityService.deleteAbility(abilityId);
         return "redirect:/ability";
     }
 

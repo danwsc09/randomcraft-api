@@ -1,0 +1,44 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content"
+>
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">능력 생성</title>
+</head>
+<body>
+<form th:action="@{/player/new}" th:object="${player}" method="post">
+    <table>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" th:field="*{name}"/> </td>
+        </tr>
+        <tr>
+            <td>아이디</td>
+            <td><input type="text" th:field="*{inGameName}"/></td>
+        </tr>
+        <tr>
+            <td>AfreecaTV</td>
+            <td><input type="text" th:field="*{afreecaName}"/></td>
+        </tr>
+        <tr>
+            <td>YouTube</td>
+            <td><input type="text" th:field="*{youtubeName}"/></td>
+        </tr>
+        <tr>
+            <td>주 종족</td>
+            <td>
+                <select th:field="*{race}">
+                    <option value="">종족을 선택해주세요</option>
+                    <option th:each="race : ${races}" th:value="${race.name()}" th:text="${race.name()}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
-@ToString
 public class AbilityCreateDto {
     private String name;
     private String description;
