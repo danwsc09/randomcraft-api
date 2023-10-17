@@ -68,7 +68,7 @@ public class AbilityViewController {
         return "redirect:/ability";
     }
 
-    @PostMapping("/ability/delete/{abilityId}")
+    @GetMapping("/ability/delete/{abilityId}")
     public String deleteAbility(@PathVariable long abilityId) {
         abilityService.deleteAbility(abilityId);
         return "redirect:/ability";

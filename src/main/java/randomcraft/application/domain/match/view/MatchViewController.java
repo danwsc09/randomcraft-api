@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import randomcraft.application.domain.ability.AbilityService;
@@ -72,6 +73,8 @@ public class MatchViewController {
     @PostMapping("/match/new")
     public String createMatch(MatchCreateDto matchCreateDto) {
 
+        // TODO: add validation and appropriate errors
+
         System.out.println("matchCreateDto = " + matchCreateDto.getPlayedOn());
         System.out.println(matchCreateDto.getMatchItems().get(0));
         System.out.println(matchCreateDto.getMatchItems().get(1));
@@ -81,4 +84,30 @@ public class MatchViewController {
 
         return "redirect:/match";
     }
+
+    @GetMapping("/match/edit/{matchId}")
+    public String editMatchPage(Model model, @PathVariable(name = "matchId") long matchId) {
+
+        List<PlayerResponseDto> players = playerService.findAllPlayers(PageRequest.of(0, 9999), "", "")
+                .getItems();
+        List<AbilityResponseDto> abilities = abilityService.findAllAbilities(PageRequest.of(0, 9999), "", "")
+                .getItems();
+
+        // TODO - edit page - winner and loser - pick well
+        MatchResponseDto match = matchService.getMatchById(matchId);
+
+        model.addAttribute("match", match);
+        model.addAttribute("players", players);
+        model.addAttribute("abilities", abilities);
+
+        return "pages/match/edit";
+    }
+
+    @GetMapping("/match/delete/{matchId}")
+    public String deleteMatch(@PathVariable(name = "matchId") long matchId) {
+
+        matchService.deleteMatchById(matchId);
+        return "redirect:/match";
+    }
+
 }

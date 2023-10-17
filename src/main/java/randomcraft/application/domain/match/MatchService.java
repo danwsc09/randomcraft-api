@@ -14,6 +14,7 @@ import randomcraft.application.domain.match.dto.MatchUpdateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.PlayerRepository;
 import randomcraft.application.exception.BadRequestException;
+import randomcraft.application.util.entity.enums.MatchValidationStatus;
 import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
@@ -102,6 +103,15 @@ public class MatchService {
     public Page<Match> getAllMatches(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return matchRepository.findAll(pageRequest);
+    }
+
+    public Page<Match> getAllValidMatches(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return matchRepository.findAllByValidationStatusEquals(pageRequest, MatchValidationStatus.APPROVED);
+    }
+
+    public void deleteMatchById(Long id) {
+        matchRepository.deleteById(id);
     }
 
     private Match findById(Long matchId) {
