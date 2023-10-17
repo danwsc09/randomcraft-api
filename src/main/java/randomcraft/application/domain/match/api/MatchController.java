@@ -1,8 +1,10 @@
-package randomcraft.application.domain.match;
+package randomcraft.application.domain.match.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import randomcraft.application.domain.match.Match;
+import randomcraft.application.domain.match.MatchService;
 import randomcraft.application.domain.match.dto.MatchCreateDto;
 import randomcraft.application.domain.match.dto.MatchResponseDto;
 import randomcraft.application.domain.match.dto.MatchStatusUpdateDto;

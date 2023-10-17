@@ -11,10 +11,14 @@ import lombok.Getter;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.exception.InvalidRandomcraftMatchException;
+import randomcraft.application.util.Constants;
+import randomcraft.application.util.TimeUtil;
 import randomcraft.application.util.entity.BaseDateEntity;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,11 +66,11 @@ public class Match extends BaseDateEntity {
      */
 
     public static Match createMatch(
-            OffsetDateTime playedOn, String summary, Integer bestOf, Integer gameNumber, String vods,
+            LocalDate playedOn, String summary, Integer bestOf, Integer gameNumber, String vods,
             List<MatchData> matchDataList
     ) {
         Match match = new Match();
-        match.playedOn = playedOn;
+        match.playedOn = OffsetDateTime.of(playedOn, LocalTime.MIDNIGHT, TimeUtil.getZoneOffset(Constants.TIME_ZONE));
         match.summary = summary;
         match.bestOf = bestOf;
         match.gameNumber = gameNumber;

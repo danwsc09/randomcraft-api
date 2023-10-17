@@ -1,0 +1,72 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content"
+>
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">기록 입력</title>
+</head>
+<body>
+<form th:action="@{/match/new}" th:object="${match}" method="post">
+    <table>
+        <tr>
+            <td>날짜</td>
+            <td><input type="date" th:field="*{playedOn}"/></td>
+        </tr>
+        <th:block th:each="matchData, stat : ${match.matchItems}">
+            <tr>
+                <td th:text="'선수' + __${stat.index + 1}__ + ' 이름'"></td>
+                <td>
+                    <select th:field="${match.matchItems[__${stat.index}__].playerId}">
+                        <option value="">선수를 선택해주세요</option>
+                        <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'선수' + __${stat.index + 1}__ + ' 능력'"></td>
+                <td>
+                    <select th:field="${match.matchItems[__${stat.index}__].abilityId}">
+                        <option value="">능력을 선택해주세요</option>
+                        <option th:each="ability : ${abilities}" th:value="${ability.id}" th:text="${ability.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'선수' + __${stat.index + 1}__ + ' 종족'"></td>
+                <td>
+                    <select th:field="${match.matchItems[__${stat.index}__].race}">
+                        <option value="">능력을 선택해주세요</option>
+                        <option th:each="race : ${races}" th:value="${race.name()}" th:text="${race.name()}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'선수' + __${stat.index + 1}__ + ' 위치'"></td>
+                <td>
+                    <select th:field="${match.matchItems[__${stat.index}__].location}">
+                        <option value="">위치를 선택해주세요</option>
+                        <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'선수' + __${stat.index + 1}__ + ' 결과'"></td>
+                <td>
+                    <select th:field="${match.matchItems[__${stat.index}__].result}">
+                        <option value="">결과를 선택해주세요</option>
+                        <option th:each="result : ${results}" th:value="${result.name()}" th:text="${result.getKorean()}"></option>
+                    </select>
+                </td>
+            </tr>
+        </th:block>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

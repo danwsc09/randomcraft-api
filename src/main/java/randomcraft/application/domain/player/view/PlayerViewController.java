@@ -50,7 +50,7 @@ public class PlayerViewController {
 
     @PostMapping("/player/new")
     public String createNewPlayer(PlayerCreateDto playerCreateDto) {
-        System.out.println("playerCreateDto = " + playerCreateDto);
+
         playerService.createPlayer(playerCreateDto);
 
         return "redirect:/player";
@@ -59,10 +59,9 @@ public class PlayerViewController {
     @GetMapping("/player/edit/{playerId}")
     public String newPlayerPage(@PathVariable("playerId") long playerId, Model model) {
         PlayerResponseDto player = playerService.findPlayerById(playerId);
-        List<Race> raceList = List.of(Race.ZERG, Race.PROTOSS, Race.TERRAN);
 
         model.addAttribute("player", player);
-        model.addAttribute("races", raceList);
+        model.addAttribute("races", Race.raceList);
 
         return "pages/player/edit";
     }

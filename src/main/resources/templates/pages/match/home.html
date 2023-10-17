@@ -1,0 +1,62 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/default_layout}"
+      layout:fragment="content">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">기록 홈</title>
+</head>
+<body>
+<a th:href="@{/match/new}">생성하기</a>
+<table>
+    <thead>
+    <tr>
+        <th>기록일</th>
+        <th>경기일</th>
+        <th>승자1 이름</th>
+        <th>승자1 능력</th>
+        <th>승자1 종족/위치</th>
+        <th>승자2 이름</th>
+        <th>승자2 능력</th>
+        <th>승자2 종족/위치</th>
+        <th>패자1 이름</th>
+        <th>패자1 능력</th>
+        <th>패자1 종족/위치</th>
+        <th>패자2 이름</th>
+        <th>패자2 능력</th>
+        <th>패자2 종족/위치</th>
+        <th>action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="match: ${matches}"
+        th:with="winner1=${match.winners.get(0)},
+        winner2=${match.winners.get(1)},
+        loser1=${match.losers.get(0)},
+        loser2=${match.losers.get(1)}"
+    >
+        <td th:text="${#temporals.format(match.createdAt, 'yyyy-MM-dd HH:mm:ss', 'Asia/Seoul')}" />
+        <td th:text="${#temporals.format(match.playedOn, 'yyyy-MM-dd HH:mm:ss', 'Asia/Seoul')}" />
+
+        <td th:text="${winner1.playerName}" />
+        <td th:text="${winner1.abilityName}" />
+        <td th:text="${winner1.location + '' + winner1.race.getLetter()}" />
+        <td th:text="${winner2.playerName}" />
+        <td th:text="${winner2.abilityName}" />
+        <td th:text="${winner2.location + '' + winner2.race.getLetter()}" />
+
+        <td th:text="${loser1.playerName}" />
+        <td th:text="${loser1.abilityName}" />
+        <td th:text="${loser1.location + '' + loser1.race.getLetter()}" />
+        <td th:text="${loser2.playerName}" />
+        <td th:text="${loser2.abilityName}" />
+        <td th:text="${loser2.location + '' + loser2.race.getLetter()}" />
+        <th>
+            <a th:href="@{|/match/edit/${match.id}|}">수정</a>
+            <a th:href="@{|/match/delete/${match.id}|}">삭제</a>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

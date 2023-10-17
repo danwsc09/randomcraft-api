@@ -13,6 +13,7 @@ import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
 import randomcraft.application.util.entity.enums.Race;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -57,7 +58,7 @@ class MatchTest {
         // when + then
         Assertions.assertThrows(InvalidRandomcraftMatchException.class, () -> {
             Match.createMatch(
-                    OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)),
+                    LocalDate.now(),
                     "", 1, 1, "",
                     List.of(data1, data2, data3)
             );
@@ -98,7 +99,7 @@ class MatchTest {
 
 
         return Match.createMatch(
-                OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)), "summary", 5, 1, "",
+                LocalDate.now(), "summary", 5, 1, "",
                 List.of(data1, data2, data3, data4)
         );
     }

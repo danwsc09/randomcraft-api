@@ -19,6 +19,7 @@ import randomcraft.application.util.Constants;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.Race;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -62,7 +63,7 @@ class MatchServiceTest {
         MatchData md4 = MatchData.create(4, Race.PROTOSS, GameResult.LOSS, a4, p4);
 
         Match match = Match.createMatch(
-                OffsetDateTime.now(ZoneId.of(Constants.TIME_ZONE)), "summary", 5, 3, "vods",
+                LocalDate.now(), "summary", 5, 3, "vods",
                 List.of(md1, md2, md3, md4)
         );
 
