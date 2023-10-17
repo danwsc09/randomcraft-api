@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import randomcraft.application.domain.ability.AbilityService;
 import randomcraft.application.domain.ability.dto.AbilityResponseDto;
-import randomcraft.application.domain.match.Match;
 import randomcraft.application.domain.match.MatchService;
 import randomcraft.application.domain.match.dto.MatchCreateDto;
 import randomcraft.application.domain.match.dto.MatchDataCreateDto;
@@ -19,9 +18,9 @@ import randomcraft.application.domain.player.dto.PlayerResponseDto;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.Location;
 import randomcraft.application.util.entity.enums.Race;
-import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,9 +37,11 @@ public class MatchViewController {
             @RequestParam(name = "size", defaultValue = "20") int size
     ) {
 
-        PaginationResponse<Match, MatchResponseDto> allMatches = matchService.getAllMatches(page, size);
+        List<MatchResponseDto> matches = matchService.getAllMatches(page, size).getContent()
+                .stream().map(MatchResponseDto::new)
+                .collect(Collectors.toList());
 
-        model.addAttribute("matches", allMatches.getItems());
+        model.addAttribute("matches", matches);
 
         return "pages/match/home";
     }
@@ -73,7 +74,10 @@ public class MatchViewController {
 
         System.out.println("matchCreateDto = " + matchCreateDto.getPlayedOn());
         System.out.println(matchCreateDto.getMatchItems().get(0));
-//        matchService.createMatch(matchCreateDto);
+        System.out.println(matchCreateDto.getMatchItems().get(1));
+        System.out.println(matchCreateDto.getMatchItems().get(2));
+        System.out.println(matchCreateDto.getMatchItems().get(3));
+        matchService.createMatch(matchCreateDto);
 
         return "redirect:/match";
     }

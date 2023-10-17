@@ -1,7 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <nav th:fragment="HeaderFragment">
-    actual header from fragments/header.html (also inside nav)
+    <a th:href="@{/}">홈</a>
+    <a th:href="@{/match}">경기</a>
+    <a th:href="@{/player}">선수</a>
+    <a th:href="@{/ability}">능력</a>
 </nav>
 </body>
 </html>

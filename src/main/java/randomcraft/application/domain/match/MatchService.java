@@ -99,14 +99,9 @@ public class MatchService {
         return new MatchResponseDto(match);
     }
 
-    public PaginationResponse<Match, MatchResponseDto> getAllMatches(int page, int size) {
+    public Page<Match> getAllMatches(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Match> matches = matchRepository.findAll(pageRequest);
-
-        List<MatchResponseDto> list = matches.stream()
-                .map(MatchResponseDto::new)
-                .toList();
-        return new PaginationResponse<>(matches, list);
+        return matchRepository.findAll(pageRequest);
     }
 
     private Match findById(Long matchId) {

@@ -1,6 +1,7 @@
 package randomcraft.application.domain.match.api;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import randomcraft.application.domain.match.Match;
@@ -11,6 +12,8 @@ import randomcraft.application.domain.match.dto.MatchStatusUpdateDto;
 import randomcraft.application.domain.match.dto.MatchUpdateDto;
 import randomcraft.application.util.Constants;
 import randomcraft.application.util.response.PaginationResponse;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/match")
@@ -36,7 +39,12 @@ public class MatchController {
             @RequestParam(defaultValue = Constants.PAGINATION_DEFAULT_PAGE) int page,
             @RequestParam(defaultValue = Constants.PAGINATION_DEFAULT_SIZE) int size
     ) {
-        return ResponseEntity.ok(matchService.getAllMatches(page, size));
+        Page<Match> allMatches = matchService.getAllMatches(page, size);
+        List<MatchResponseDto> list = allMatches.stream()
+                .map(MatchResponseDto::new)
+                .toList();
+
+        return ResponseEntity.ok(new PaginationResponse<>(allMatches, list));
     }
 
     @PatchMapping("/verify")

@@ -14,6 +14,9 @@ import java.util.List;
 @Getter @Setter
 public class MatchResponseDto {
 
+    private Long id;
+    private OffsetDateTime createdAt;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN_DATE_ONLY, timezone = Constants.TIME_ZONE)
     private OffsetDateTime playedOn;
     private String summary;
@@ -25,6 +28,8 @@ public class MatchResponseDto {
     private List<MatchDataResponseDto> losers;
 
     public MatchResponseDto(Match match) {
+        id = match.getId();
+        createdAt = match.getCreatedAt();
         playedOn = match.getPlayedOn();
         summary = match.getSummary();
         bestOf = match.getBestOf();
