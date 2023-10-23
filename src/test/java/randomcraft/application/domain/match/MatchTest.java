@@ -7,15 +7,12 @@ import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
-import randomcraft.application.exception.InvalidRandomcraftMatchException;
-import randomcraft.application.util.Constants;
+import randomcraft.application.exception.generic.ScInvalidMatchException;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
 import randomcraft.application.util.entity.enums.Race;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +53,7 @@ class MatchTest {
         );
 
         // when + then
-        Assertions.assertThrows(InvalidRandomcraftMatchException.class, () -> {
+        Assertions.assertThrows(ScInvalidMatchException.class, () -> {
             Match.createMatch(
                     LocalDate.now(),
                     "", 1, 1, "",

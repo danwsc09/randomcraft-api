@@ -1,4 +1,4 @@
-package randomcraft.application.domain.match;
+package randomcraft.application.domain.match.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -7,21 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.AbilityRepository;
+import randomcraft.application.domain.match.Match;
+import randomcraft.application.domain.match.MatchData;
+import randomcraft.application.domain.match.MatchDataRepository;
+import randomcraft.application.domain.match.MatchRepository;
 import randomcraft.application.domain.match.dto.MatchCreateDto;
 import randomcraft.application.domain.match.dto.MatchResponseDto;
 import randomcraft.application.domain.match.dto.MatchStatusUpdateDto;
 import randomcraft.application.domain.match.dto.MatchUpdateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.PlayerRepository;
-import randomcraft.application.exception.BadRequestException;
+import randomcraft.application.exception.generic.ScBadRequestException;
 import randomcraft.application.util.entity.enums.MatchValidationStatus;
-import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MatchService {
+public class MatchApiService {
 
     private final MatchDataRepository matchDataRepository;
     private final MatchRepository matchRepository;
@@ -33,14 +36,14 @@ public class MatchService {
 
         Match match = matchRepository.findById(matchUpdateDto.getId())
                 .orElseThrow(() ->
-                        new BadRequestException(String.format("Match with id %s not found.", matchUpdateDto.getId())));
+                        new ScBadRequestException(String.format("Match with id %s not found.", matchUpdateDto.getId())));
 
         List<MatchData> matchDataList = matchUpdateDto.getMatchItems().stream()
                 .map(matchDataUpdateDto -> {
                     Ability ability = abilityRepository.findById(matchDataUpdateDto.getAbilityId())
-                            .orElseThrow(() -> new BadRequestException("No ability by id " + matchDataUpdateDto.getAbilityId()));
+                            .orElseThrow(() -> new ScBadRequestException("No ability by id " + matchDataUpdateDto.getAbilityId()));
                     Player player = playerRepository.findById(matchDataUpdateDto.getPlayerId())
-                            .orElseThrow(() -> new BadRequestException("No player by id " + matchDataUpdateDto.getPlayerId()));
+                            .orElseThrow(() -> new ScBadRequestException("No player by id " + matchDataUpdateDto.getPlayerId()));
 
                     return MatchData.create(matchDataUpdateDto.getLocation(), matchDataUpdateDto.getRace(),
                             matchDataUpdateDto.getResult(), ability, player);
@@ -78,10 +81,10 @@ public class MatchService {
         List<MatchData> matchDataList = matchCreateDto.getMatchItems().stream()
                 .map(item -> {
                     Ability ability = abilityRepository.findById(item.getAbilityId())
-                            .orElseThrow(() -> new BadRequestException("No ability by id " + item.getAbilityId()));
+                            .orElseThrow(() -> new ScBadRequestException("No ability by id " + item.getAbilityId()));
 
                     Player player = playerRepository.findById(item.getPlayerId())
-                            .orElseThrow(() -> new BadRequestException("No player by id " + item.getPlayerId()));
+                            .orElseThrow(() -> new ScBadRequestException("No player by id " + item.getPlayerId()));
 
                     return MatchData.create(
                             item.getLocation(), item.getRace(), item.getResult(), ability, player
@@ -110,12 +113,8 @@ public class MatchService {
         return matchRepository.findAllByValidationStatusEquals(pageRequest, MatchValidationStatus.APPROVED);
     }
 
-    public void deleteMatchById(Long id) {
-        matchRepository.deleteById(id);
-    }
-
     private Match findById(Long matchId) {
         return matchRepository.findById(matchId)
-                .orElseThrow(() -> new BadRequestException("No match by id " + matchId));
+                .orElseThrow(() -> new ScBadRequestException("No match by id " + matchId));
     }
 }

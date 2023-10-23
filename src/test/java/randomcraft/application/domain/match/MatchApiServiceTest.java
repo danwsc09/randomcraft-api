@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.ability.AbilityRepository;
 import randomcraft.application.domain.ability.dto.AbilityCreateDto;
+import randomcraft.application.domain.match.api.MatchApiService;
 import randomcraft.application.domain.match.dto.MatchDataResponseDto;
 import randomcraft.application.domain.match.dto.MatchDataUpdateDto;
 import randomcraft.application.domain.match.dto.MatchResponseDto;
@@ -15,22 +16,19 @@ import randomcraft.application.domain.match.dto.MatchUpdateDto;
 import randomcraft.application.domain.player.Player;
 import randomcraft.application.domain.player.PlayerRepository;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
-import randomcraft.application.util.Constants;
 import randomcraft.application.util.entity.enums.GameResult;
 import randomcraft.application.util.entity.enums.Race;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class MatchServiceTest {
+class MatchApiServiceTest {
 
     @Autowired
-    MatchService matchService;
+    MatchApiService matchApiService;
     @Autowired
     MatchRepository matchRepository;
     @Autowired
@@ -90,7 +88,7 @@ class MatchServiceTest {
                 List.of(mdu1, mdu2, mdu3, mdu4)
         );
 
-        MatchResponseDto matchResponseDto = matchService.updateMatch(matchUpdateDto);
+        MatchResponseDto matchResponseDto = matchApiService.updateMatch(matchUpdateDto);
         List<MatchDataResponseDto> winners = matchResponseDto.getWinners();
         List<MatchDataResponseDto> losers = matchResponseDto.getLosers();
 

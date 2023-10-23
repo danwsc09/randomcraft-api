@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import randomcraft.application.domain.ability.Ability;
 import randomcraft.application.domain.player.Player;
-import randomcraft.application.exception.InvalidRandomcraftMatchException;
+import randomcraft.application.exception.generic.ScInvalidMatchException;
 import randomcraft.application.util.Constants;
 import randomcraft.application.util.TimeUtil;
 import randomcraft.application.util.entity.BaseDateEntity;
@@ -108,7 +108,7 @@ public class Match extends BaseDateEntity {
     public void validateMatchDetail() {
         // 4 players
         if (matchDataList.size() != 4) {
-            throw new InvalidRandomcraftMatchException("There must be 4 matches");
+            throw new ScInvalidMatchException("There must be 4 matches");
         }
 
         // 2 wins and 2 losses
@@ -121,7 +121,7 @@ public class Match extends BaseDateEntity {
                 .count();
 
         if (winCount != 2 || lossCount != 2) {
-            throw new InvalidRandomcraftMatchException("There must be 2 wins and 2 losses");
+            throw new ScInvalidMatchException("There must be 2 wins and 2 losses");
         }
 
         // no overlapping location
@@ -130,7 +130,7 @@ public class Match extends BaseDateEntity {
                 .collect(Collectors.toSet());
 
         if (locationSet.size() != 4) {
-            throw new InvalidRandomcraftMatchException("There must be 4 unique locations");
+            throw new ScInvalidMatchException("There must be 4 unique locations");
         }
     }
 

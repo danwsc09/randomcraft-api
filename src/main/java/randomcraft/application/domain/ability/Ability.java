@@ -19,6 +19,9 @@ public class Ability extends BaseDateEntity {
     @Column
     private String name;
 
+//    @Column
+//    private String category;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 

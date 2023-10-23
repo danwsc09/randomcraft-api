@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import randomcraft.application.domain.player.dto.PlayerCreateDto;
 import randomcraft.application.domain.player.dto.PlayerInfoUpdateDto;
 import randomcraft.application.domain.player.dto.PlayerResponseDto;
-import randomcraft.application.exception.BadRequestException;
+import randomcraft.application.exception.generic.ScBadRequestException;
 import randomcraft.application.util.response.PaginationResponse;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class PlayerService {
     public PlayerResponseDto updatePlayerInfo(Long playerId, PlayerInfoUpdateDto playerInfoUpdateDto) {
 
         Player player = playerRepository.findById(playerId)
-                .orElseThrow(() -> new BadRequestException("No such player"));
+                .orElseThrow(() -> new ScBadRequestException("No such player"));
 
         Player updatedPlayer = player.updatePlayerInfo(playerInfoUpdateDto);
 
