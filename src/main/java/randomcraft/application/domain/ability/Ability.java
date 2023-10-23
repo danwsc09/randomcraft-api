@@ -19,8 +19,8 @@ public class Ability extends BaseDateEntity {
     @Column
     private String name;
 
-//    @Column
-//    private String category;
+    @Column
+    private String category;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -34,9 +34,6 @@ public class Ability extends BaseDateEntity {
 
     @Column(name = "loss_count")
     private Long lossCount;
-
-    @Column(name = "test_date", columnDefinition = "TIMESTAMP(6) WITH TIME ZONE")
-    private OffsetDateTime testDate;
 
     /*
         Business Logic

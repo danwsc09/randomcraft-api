@@ -1,9 +1,5 @@
 spring:
   datasource:
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password: password
-#    driver-class-name: org.h2.Driver
     url: jdbc:postgresql://localhost:5432/randomstarcraft
     username: postgres
     driver-class-name: org.postgresql.Driver
@@ -13,6 +9,13 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: randomcraft.application.util.TableNamingStrategy
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/randomstarcraft
+    user: postgres
+    schemas: public
+    locations: classpath:db/migration/randomstarcraft
+    baseline-on-migrate: true
 
 server:
   error:
