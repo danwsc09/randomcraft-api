@@ -29,7 +29,7 @@ public class AbilityService {
                 .map(AbilityResponseDto::createFrom)
                 .toList();
 
-        return new PaginationResponse(abilities, list);
+        return new PaginationResponse<>(abilities, list);
     }
 
     public AbilityResponseDto findById(Long id) {
